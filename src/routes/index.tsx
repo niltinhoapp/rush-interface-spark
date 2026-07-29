@@ -48,22 +48,23 @@ function Overview() {
         ))}
       </div>
 
-      <div className="mt-6 grid gap-4 xl:grid-cols-3">
-        <section className="surface-panel rounded-2xl p-5 xl:col-span-2">
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <div>
-              <h2 className="text-lg font-semibold">Receita x Investimento</h2>
-              <p className="text-sm text-muted-foreground">Evolução diária no período</p>
+      <div className="mt-6 grid gap-4 lg:mt-8 lg:gap-6 xl:grid-cols-3">
+        <section className="surface-panel rounded-2xl p-5 sm:p-6 xl:col-span-2">
+          <div className="grid gap-3 sm:flex sm:flex-wrap sm:items-center sm:justify-between">
+            <div className="min-w-0">
+              <h2 className="truncate text-lg font-semibold">Receita x Investimento</h2>
+              <p className="mt-0.5 text-sm text-muted-foreground">Evolução diária no período</p>
             </div>
-            <div className="flex gap-4 text-xs text-muted-foreground">
+            <div className="flex flex-wrap gap-4 text-xs text-muted-foreground">
               <span className="flex items-center gap-2">
-                <span className="size-2 rounded-full bg-chart-1" /> Receita
+                <span className="size-2 shrink-0 rounded-full bg-chart-1" /> Receita
               </span>
               <span className="flex items-center gap-2">
-                <span className="size-2 rounded-full bg-chart-2" /> Investimento
+                <span className="size-2 shrink-0 rounded-full bg-chart-2" /> Investimento
               </span>
             </div>
           </div>
+
           <div className="mt-6 h-72 w-full">
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={revenueSeries} margin={{ left: -18, right: 8, top: 8 }}>
@@ -119,9 +120,9 @@ function Overview() {
           </div>
         </section>
 
-        <section className="surface-panel rounded-2xl p-5">
+        <section className="surface-panel rounded-2xl p-5 sm:p-6">
           <h2 className="text-lg font-semibold">Origem das vendas</h2>
-          <p className="text-sm text-muted-foreground">Participação por canal</p>
+          <p className="mt-0.5 text-sm text-muted-foreground">Participação por canal</p>
           <div className="mt-4 h-52">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
@@ -141,52 +142,67 @@ function Overview() {
               </PieChart>
             </ResponsiveContainer>
           </div>
-          <ul className="mt-2 space-y-2">
+          <ul className="mt-4 divide-y divide-border/70">
             {channelSplit.map((c, i) => (
-              <li key={c.name} className="flex items-center justify-between text-sm">
-                <span className="flex items-center gap-2 text-muted-foreground">
+              <li key={c.name} className="flex items-center justify-between gap-3 py-2 text-sm">
+                <span className="flex min-w-0 items-center gap-2 text-muted-foreground">
                   <span
-                    className="size-2 rounded-full"
+                    className="size-2 shrink-0 rounded-full"
                     style={{ background: chartColors[i % chartColors.length] }}
                   />
-                  {c.name}
+                  <span className="truncate">{c.name}</span>
                 </span>
-                <span className="font-medium">{c.value}%</span>
+                <span className="shrink-0 font-medium tabular-nums">{c.value}%</span>
               </li>
             ))}
           </ul>
         </section>
       </div>
 
-      <div className="mt-6 grid gap-4 xl:grid-cols-3">
-        <section className="surface-panel rounded-2xl p-5 xl:col-span-2">
-          <h2 className="text-lg font-semibold">Campanhas em destaque</h2>
-          <div className="mt-4 space-y-3">
+      <div className="mt-6 grid gap-4 lg:mt-8 lg:gap-6 xl:grid-cols-3">
+        <section className="surface-panel rounded-2xl p-5 sm:p-6 xl:col-span-2">
+          <div className="grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-3">
+            <h2 className="truncate text-lg font-semibold">Campanhas em destaque</h2>
+            <span className="shrink-0 text-xs text-muted-foreground">Top 4 por receita</span>
+          </div>
+          <div className="mt-4 space-y-2.5">
             {campaigns.slice(0, 4).map((c) => (
               <div
                 key={c.id}
-                className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-border bg-card px-4 py-3"
+                tabIndex={0}
+                className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 rounded-xl border border-border bg-card px-4 py-3 transition-colors hover:border-primary/40 hover:bg-secondary/50 focus-visible:border-primary/40 focus-visible:outline-none sm:flex sm:justify-between"
               >
                 <div className="min-w-0">
                   <p className="truncate text-sm font-medium">{c.name}</p>
-                  <p className="text-xs text-muted-foreground">
+                  <p className="mt-0.5 truncate text-xs text-muted-foreground">
                     {c.objective} · CTR {c.ctr}
                   </p>
                 </div>
-                <div className="flex items-center gap-6 text-sm">
-                  <span className="text-muted-foreground">{c.spend}</span>
-                  <span className="font-display font-semibold text-rush">{c.roas.toFixed(1)}x</span>
+                <div className="flex shrink-0 items-center gap-4 text-sm sm:gap-6">
+                  <span className="tabular-nums text-muted-foreground">{c.spend}</span>
+                  <span className="font-display font-semibold tabular-nums text-rush">
+                    {c.roas.toFixed(1)}x
+                  </span>
                 </div>
               </div>
             ))}
           </div>
         </section>
 
-        <section className="surface-panel rounded-2xl p-5">
+        <section className="surface-panel rounded-2xl p-5 sm:p-6">
           <h2 className="text-lg font-semibold">Alertas</h2>
-          <div className="mt-4 space-y-3">
+          <div className="mt-4 space-y-2.5">
             {alerts.map((a) => (
-              <div key={a.id} className="rounded-xl border border-border bg-card p-4">
+              <div
+                key={a.id}
+                className={`rounded-xl border border-border bg-card p-4 border-l-2 transition-colors hover:bg-secondary/50 ${
+                  a.tone === "warning"
+                    ? "border-l-warning"
+                    : a.tone === "success"
+                      ? "border-l-success"
+                      : "border-l-border"
+                }`}
+              >
                 <p
                   className={`text-sm font-medium ${
                     a.tone === "warning"
@@ -198,12 +214,13 @@ function Overview() {
                 >
                   {a.title}
                 </p>
-                <p className="mt-1 text-xs text-muted-foreground">{a.body}</p>
+                <p className="mt-1 text-xs leading-relaxed text-muted-foreground">{a.body}</p>
               </div>
             ))}
           </div>
         </section>
       </div>
+
     </DashboardLayout>
   );
 }
