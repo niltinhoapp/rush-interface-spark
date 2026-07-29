@@ -48,22 +48,23 @@ function Overview() {
         ))}
       </div>
 
-      <div className="mt-6 grid gap-4 xl:grid-cols-3">
-        <section className="surface-panel rounded-2xl p-5 xl:col-span-2">
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <div>
-              <h2 className="text-lg font-semibold">Receita x Investimento</h2>
-              <p className="text-sm text-muted-foreground">Evolução diária no período</p>
+      <div className="mt-6 grid gap-4 lg:mt-8 lg:gap-6 xl:grid-cols-3">
+        <section className="surface-panel rounded-2xl p-5 sm:p-6 xl:col-span-2">
+          <div className="grid gap-3 sm:flex sm:flex-wrap sm:items-center sm:justify-between">
+            <div className="min-w-0">
+              <h2 className="truncate text-lg font-semibold">Receita x Investimento</h2>
+              <p className="mt-0.5 text-sm text-muted-foreground">Evolução diária no período</p>
             </div>
-            <div className="flex gap-4 text-xs text-muted-foreground">
+            <div className="flex flex-wrap gap-4 text-xs text-muted-foreground">
               <span className="flex items-center gap-2">
-                <span className="size-2 rounded-full bg-chart-1" /> Receita
+                <span className="size-2 shrink-0 rounded-full bg-chart-1" /> Receita
               </span>
               <span className="flex items-center gap-2">
-                <span className="size-2 rounded-full bg-chart-2" /> Investimento
+                <span className="size-2 shrink-0 rounded-full bg-chart-2" /> Investimento
               </span>
             </div>
           </div>
+
           <div className="mt-6 h-72 w-full">
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={revenueSeries} margin={{ left: -18, right: 8, top: 8 }}>
