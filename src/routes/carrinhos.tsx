@@ -11,7 +11,7 @@ import { SearchInput } from "@/components/common/SearchInput";
 import { Pagination } from "@/components/common/Pagination";
 import { StatusBadge, humanize, statusTones } from "@/components/common/StatusBadge";
 import { Modal } from "@/components/common/Modal";
-import { carts } from "@/data/carts";
+import { carts } from "@/data/mocks/carts";
 import { formatCurrency, formatDateTime } from "@/lib/format";
 import type { Cart } from "@/types";
 

@@ -10,7 +10,7 @@ import { SearchInput } from "@/components/common/SearchInput";
 import { Pagination } from "@/components/common/Pagination";
 import { StatusBadge, humanize, statusTones } from "@/components/common/StatusBadge";
 import { Modal } from "@/components/common/Modal";
-import { contacts } from "@/data/contacts";
+import { contacts } from "@/data/mocks/contacts";
 import { formatCurrency, formatDate } from "@/lib/format";
 import type { Contact } from "@/types";
 

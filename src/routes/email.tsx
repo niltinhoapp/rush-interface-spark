@@ -5,8 +5,8 @@ import { AppShell } from "@/components/layout/AppShell";
 import { SectionCard } from "@/components/common/SectionCard";
 import { MetricCard } from "@/components/common/MetricCard";
 import { StatusBadge, humanize, statusTones } from "@/components/common/StatusBadge";
-import { emailConnection } from "@/data/integrations";
-import { emailTemplates } from "@/data/templates";
+import { emailConnection } from "@/data/mocks/integrations";
+import { emailTemplates } from "@/data/mocks/templates";
 
 export const Route = createFileRoute("/email")({
   head: () => ({
