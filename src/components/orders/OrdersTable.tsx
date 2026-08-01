@@ -1,7 +1,6 @@
 import { AppLink } from "@/components/common/AppLink";
 import { StatusBadge, statusTones } from "@/components/common/StatusBadge";
 import { AsyncSection, SkeletonRows } from "@/components/common/AsyncSection";
-import { EmptyState } from "@/components/common/EmptyState";
 import { paymentLabels, shippingLabels } from "@/lib/labels";
 import { formatCurrency, orNotProvided } from "@/lib/format";
 import { maskSecret } from "@/lib/mask";
