@@ -9,9 +9,12 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TemplatesRouteImport } from './routes/templates'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ProdutosRouteImport } from './routes/produtos'
+import { Route as MensagensRouteImport } from './routes/mensagens'
 import { Route as CriativosRouteImport } from './routes/criativos'
+import { Route as ContatosRouteImport } from './routes/contatos'
 import { Route as ConfiguracoesRouteImport } from './routes/configuracoes'
 import { Route as CarrinhosRouteImport } from './routes/carrinhos'
 import { Route as CampanhasRouteImport } from './routes/campanhas'
@@ -21,6 +24,11 @@ import { Route as AutomacoesIndexRouteImport } from './routes/automacoes.index'
 import { Route as PedidosOrderIdRouteImport } from './routes/pedidos.$orderId'
 import { Route as AutomacoesNovaRouteImport } from './routes/automacoes.nova'
 
+const TemplatesRoute = TemplatesRouteImport.update({
+  id: '/templates',
+  path: '/templates',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
@@ -31,9 +39,19 @@ const ProdutosRoute = ProdutosRouteImport.update({
   path: '/produtos',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MensagensRoute = MensagensRouteImport.update({
+  id: '/mensagens',
+  path: '/mensagens',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CriativosRoute = CriativosRouteImport.update({
   id: '/criativos',
   path: '/criativos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContatosRoute = ContatosRouteImport.update({
+  id: '/contatos',
+  path: '/contatos',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ConfiguracoesRoute = ConfiguracoesRouteImport.update({
@@ -82,9 +100,12 @@ export interface FileRoutesByFullPath {
   '/campanhas': typeof CampanhasRoute
   '/carrinhos': typeof CarrinhosRoute
   '/configuracoes': typeof ConfiguracoesRoute
+  '/contatos': typeof ContatosRoute
   '/criativos': typeof CriativosRoute
+  '/mensagens': typeof MensagensRoute
   '/produtos': typeof ProdutosRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/templates': typeof TemplatesRoute
   '/automacoes/nova': typeof AutomacoesNovaRoute
   '/pedidos/$orderId': typeof PedidosOrderIdRoute
   '/automacoes/': typeof AutomacoesIndexRoute
@@ -95,9 +116,12 @@ export interface FileRoutesByTo {
   '/campanhas': typeof CampanhasRoute
   '/carrinhos': typeof CarrinhosRoute
   '/configuracoes': typeof ConfiguracoesRoute
+  '/contatos': typeof ContatosRoute
   '/criativos': typeof CriativosRoute
+  '/mensagens': typeof MensagensRoute
   '/produtos': typeof ProdutosRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/templates': typeof TemplatesRoute
   '/automacoes/nova': typeof AutomacoesNovaRoute
   '/pedidos/$orderId': typeof PedidosOrderIdRoute
   '/automacoes': typeof AutomacoesIndexRoute
@@ -109,9 +133,12 @@ export interface FileRoutesById {
   '/campanhas': typeof CampanhasRoute
   '/carrinhos': typeof CarrinhosRoute
   '/configuracoes': typeof ConfiguracoesRoute
+  '/contatos': typeof ContatosRoute
   '/criativos': typeof CriativosRoute
+  '/mensagens': typeof MensagensRoute
   '/produtos': typeof ProdutosRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/templates': typeof TemplatesRoute
   '/automacoes/nova': typeof AutomacoesNovaRoute
   '/pedidos/$orderId': typeof PedidosOrderIdRoute
   '/automacoes/': typeof AutomacoesIndexRoute
@@ -124,9 +151,12 @@ export interface FileRouteTypes {
     | '/campanhas'
     | '/carrinhos'
     | '/configuracoes'
+    | '/contatos'
     | '/criativos'
+    | '/mensagens'
     | '/produtos'
     | '/sitemap.xml'
+    | '/templates'
     | '/automacoes/nova'
     | '/pedidos/$orderId'
     | '/automacoes/'
@@ -137,9 +167,12 @@ export interface FileRouteTypes {
     | '/campanhas'
     | '/carrinhos'
     | '/configuracoes'
+    | '/contatos'
     | '/criativos'
+    | '/mensagens'
     | '/produtos'
     | '/sitemap.xml'
+    | '/templates'
     | '/automacoes/nova'
     | '/pedidos/$orderId'
     | '/automacoes'
@@ -150,9 +183,12 @@ export interface FileRouteTypes {
     | '/campanhas'
     | '/carrinhos'
     | '/configuracoes'
+    | '/contatos'
     | '/criativos'
+    | '/mensagens'
     | '/produtos'
     | '/sitemap.xml'
+    | '/templates'
     | '/automacoes/nova'
     | '/pedidos/$orderId'
     | '/automacoes/'
@@ -164,9 +200,12 @@ export interface RootRouteChildren {
   CampanhasRoute: typeof CampanhasRoute
   CarrinhosRoute: typeof CarrinhosRoute
   ConfiguracoesRoute: typeof ConfiguracoesRoute
+  ContatosRoute: typeof ContatosRoute
   CriativosRoute: typeof CriativosRoute
+  MensagensRoute: typeof MensagensRoute
   ProdutosRoute: typeof ProdutosRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  TemplatesRoute: typeof TemplatesRoute
   AutomacoesNovaRoute: typeof AutomacoesNovaRoute
   PedidosOrderIdRoute: typeof PedidosOrderIdRoute
   AutomacoesIndexRoute: typeof AutomacoesIndexRoute
@@ -175,6 +214,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/templates': {
+      id: '/templates'
+      path: '/templates'
+      fullPath: '/templates'
+      preLoaderRoute: typeof TemplatesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sitemap.xml': {
       id: '/sitemap.xml'
       path: '/sitemap.xml'
@@ -189,11 +235,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProdutosRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/mensagens': {
+      id: '/mensagens'
+      path: '/mensagens'
+      fullPath: '/mensagens'
+      preLoaderRoute: typeof MensagensRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/criativos': {
       id: '/criativos'
       path: '/criativos'
       fullPath: '/criativos'
       preLoaderRoute: typeof CriativosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contatos': {
+      id: '/contatos'
+      path: '/contatos'
+      fullPath: '/contatos'
+      preLoaderRoute: typeof ContatosRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/configuracoes': {
@@ -260,9 +320,12 @@ const rootRouteChildren: RootRouteChildren = {
   CampanhasRoute: CampanhasRoute,
   CarrinhosRoute: CarrinhosRoute,
   ConfiguracoesRoute: ConfiguracoesRoute,
+  ContatosRoute: ContatosRoute,
   CriativosRoute: CriativosRoute,
+  MensagensRoute: MensagensRoute,
   ProdutosRoute: ProdutosRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  TemplatesRoute: TemplatesRoute,
   AutomacoesNovaRoute: AutomacoesNovaRoute,
   PedidosOrderIdRoute: PedidosOrderIdRoute,
   AutomacoesIndexRoute: AutomacoesIndexRoute,
