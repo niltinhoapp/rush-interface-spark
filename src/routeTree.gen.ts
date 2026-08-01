@@ -13,9 +13,13 @@ import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ProdutosRouteImport } from './routes/produtos'
 import { Route as CriativosRouteImport } from './routes/criativos'
 import { Route as ConfiguracoesRouteImport } from './routes/configuracoes'
+import { Route as CarrinhosRouteImport } from './routes/carrinhos'
 import { Route as CampanhasRouteImport } from './routes/campanhas'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as PedidosIndexRouteImport } from './routes/pedidos.index'
 import { Route as AutomacoesIndexRouteImport } from './routes/automacoes.index'
+import { Route as PedidosOrderIdRouteImport } from './routes/pedidos.$orderId'
+import { Route as AutomacoesNovaRouteImport } from './routes/automacoes.nova'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
@@ -37,6 +41,11 @@ const ConfiguracoesRoute = ConfiguracoesRouteImport.update({
   path: '/configuracoes',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CarrinhosRoute = CarrinhosRouteImport.update({
+  id: '/carrinhos',
+  path: '/carrinhos',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CampanhasRoute = CampanhasRouteImport.update({
   id: '/campanhas',
   path: '/campanhas',
@@ -47,78 +56,121 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PedidosIndexRoute = PedidosIndexRouteImport.update({
+  id: '/pedidos/',
+  path: '/pedidos/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AutomacoesIndexRoute = AutomacoesIndexRouteImport.update({
   id: '/automacoes/',
   path: '/automacoes/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PedidosOrderIdRoute = PedidosOrderIdRouteImport.update({
+  id: '/pedidos/$orderId',
+  path: '/pedidos/$orderId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AutomacoesNovaRoute = AutomacoesNovaRouteImport.update({
+  id: '/automacoes/nova',
+  path: '/automacoes/nova',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/campanhas': typeof CampanhasRoute
+  '/carrinhos': typeof CarrinhosRoute
   '/configuracoes': typeof ConfiguracoesRoute
   '/criativos': typeof CriativosRoute
   '/produtos': typeof ProdutosRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/automacoes/nova': typeof AutomacoesNovaRoute
+  '/pedidos/$orderId': typeof PedidosOrderIdRoute
   '/automacoes/': typeof AutomacoesIndexRoute
+  '/pedidos/': typeof PedidosIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/campanhas': typeof CampanhasRoute
+  '/carrinhos': typeof CarrinhosRoute
   '/configuracoes': typeof ConfiguracoesRoute
   '/criativos': typeof CriativosRoute
   '/produtos': typeof ProdutosRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/automacoes/nova': typeof AutomacoesNovaRoute
+  '/pedidos/$orderId': typeof PedidosOrderIdRoute
   '/automacoes': typeof AutomacoesIndexRoute
+  '/pedidos': typeof PedidosIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/campanhas': typeof CampanhasRoute
+  '/carrinhos': typeof CarrinhosRoute
   '/configuracoes': typeof ConfiguracoesRoute
   '/criativos': typeof CriativosRoute
   '/produtos': typeof ProdutosRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/automacoes/nova': typeof AutomacoesNovaRoute
+  '/pedidos/$orderId': typeof PedidosOrderIdRoute
   '/automacoes/': typeof AutomacoesIndexRoute
+  '/pedidos/': typeof PedidosIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/campanhas'
+    | '/carrinhos'
     | '/configuracoes'
     | '/criativos'
     | '/produtos'
     | '/sitemap.xml'
+    | '/automacoes/nova'
+    | '/pedidos/$orderId'
     | '/automacoes/'
+    | '/pedidos/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/campanhas'
+    | '/carrinhos'
     | '/configuracoes'
     | '/criativos'
     | '/produtos'
     | '/sitemap.xml'
+    | '/automacoes/nova'
+    | '/pedidos/$orderId'
     | '/automacoes'
+    | '/pedidos'
   id:
     | '__root__'
     | '/'
     | '/campanhas'
+    | '/carrinhos'
     | '/configuracoes'
     | '/criativos'
     | '/produtos'
     | '/sitemap.xml'
+    | '/automacoes/nova'
+    | '/pedidos/$orderId'
     | '/automacoes/'
+    | '/pedidos/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CampanhasRoute: typeof CampanhasRoute
+  CarrinhosRoute: typeof CarrinhosRoute
   ConfiguracoesRoute: typeof ConfiguracoesRoute
   CriativosRoute: typeof CriativosRoute
   ProdutosRoute: typeof ProdutosRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  AutomacoesNovaRoute: typeof AutomacoesNovaRoute
+  PedidosOrderIdRoute: typeof PedidosOrderIdRoute
   AutomacoesIndexRoute: typeof AutomacoesIndexRoute
+  PedidosIndexRoute: typeof PedidosIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -151,6 +203,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ConfiguracoesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/carrinhos': {
+      id: '/carrinhos'
+      path: '/carrinhos'
+      fullPath: '/carrinhos'
+      preLoaderRoute: typeof CarrinhosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/campanhas': {
       id: '/campanhas'
       path: '/campanhas'
@@ -165,11 +224,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/pedidos/': {
+      id: '/pedidos/'
+      path: '/pedidos'
+      fullPath: '/pedidos/'
+      preLoaderRoute: typeof PedidosIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/automacoes/': {
       id: '/automacoes/'
       path: '/automacoes'
       fullPath: '/automacoes/'
       preLoaderRoute: typeof AutomacoesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pedidos/$orderId': {
+      id: '/pedidos/$orderId'
+      path: '/pedidos/$orderId'
+      fullPath: '/pedidos/$orderId'
+      preLoaderRoute: typeof PedidosOrderIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/automacoes/nova': {
+      id: '/automacoes/nova'
+      path: '/automacoes/nova'
+      fullPath: '/automacoes/nova'
+      preLoaderRoute: typeof AutomacoesNovaRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -178,11 +258,15 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CampanhasRoute: CampanhasRoute,
+  CarrinhosRoute: CarrinhosRoute,
   ConfiguracoesRoute: ConfiguracoesRoute,
   CriativosRoute: CriativosRoute,
   ProdutosRoute: ProdutosRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  AutomacoesNovaRoute: AutomacoesNovaRoute,
+  PedidosOrderIdRoute: PedidosOrderIdRoute,
   AutomacoesIndexRoute: AutomacoesIndexRoute,
+  PedidosIndexRoute: PedidosIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
