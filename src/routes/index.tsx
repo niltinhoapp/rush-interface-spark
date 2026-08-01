@@ -29,7 +29,7 @@ import { AppShell } from "@/components/layout/AppShell";
 import { MetricCard } from "@/components/common/MetricCard";
 import { SectionCard } from "@/components/common/SectionCard";
 import { StatusBadge, humanize, statusTones } from "@/components/common/StatusBadge";
-import { dashboardMetrics } from "@/data/dashboard";
+import { dashboardMetrics } from "@/data/mocks/dashboard";
 import { formatCurrency, formatNumber } from "@/lib/format";
 
 export const Route = createFileRoute("/")({

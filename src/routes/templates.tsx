@@ -7,7 +7,7 @@ import { SectionCard } from "@/components/common/SectionCard";
 import { FilterTabs } from "@/components/common/FilterTabs";
 import { StatusBadge, humanize, statusTones } from "@/components/common/StatusBadge";
 import { Modal } from "@/components/common/Modal";
-import { emailTemplates, whatsappTemplates } from "@/data/templates";
+import { emailTemplates, whatsappTemplates } from "@/data/mocks/templates";
 import { formatDate } from "@/lib/format";
 import type { Channel } from "@/types";
 

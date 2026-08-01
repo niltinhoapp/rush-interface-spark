@@ -6,7 +6,7 @@ import { SectionCard } from "@/components/common/SectionCard";
 import { Timeline } from "@/components/common/Timeline";
 import { EmptyState } from "@/components/common/EmptyState";
 import { StatusBadge, humanize, statusTones } from "@/components/common/StatusBadge";
-import { orders } from "@/data/orders";
+import { orders } from "@/data/mocks/orders";
 import { formatCurrency, formatDateTime } from "@/lib/format";
 
 export const Route = createFileRoute("/pedidos/$orderId")({

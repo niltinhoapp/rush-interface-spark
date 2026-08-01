@@ -4,8 +4,8 @@ import { AlertTriangle, MessageCircle, RefreshCw, ShieldCheck } from "lucide-rea
 import { AppShell } from "@/components/layout/AppShell";
 import { SectionCard } from "@/components/common/SectionCard";
 import { StatusBadge, humanize, statusTones } from "@/components/common/StatusBadge";
-import { whatsappConnection } from "@/data/integrations";
-import { whatsappTemplates } from "@/data/templates";
+import { whatsappConnection } from "@/data/mocks/connections";
+import { whatsappTemplates } from "@/data/mocks/templates";
 
 export const Route = createFileRoute("/whatsapp")({
   head: () => ({
@@ -38,8 +38,8 @@ function WhatsappPage() {
             description="Número e conta comercial vinculados"
             actions={
               <StatusBadge
-                label={c.connected ? "Conectado" : "Desconectado"}
-                tone={c.connected ? "success" : "neutral"}
+                label={(c.status === "conectado") ? "Conectado" : "Desconectado"}
+                tone={(c.status === "conectado") ? "success" : "neutral"}
               />
             }
           >
@@ -47,7 +47,7 @@ function WhatsappPage() {
               {[
                 ["Número", c.phone],
                 ["Conta comercial", c.businessName],
-                ["WABA ID", c.waba],
+                ["WABA ID", c.wabaId],
                 ["Status da conta", c.accountStatus],
                 ["Qualidade", c.quality],
                 ["Limite de envio", c.messagingLimit],

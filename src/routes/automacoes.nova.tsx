@@ -5,8 +5,8 @@ import { ArrowLeft, Clock, GitBranch, Mail, MessageCircle, Plus, Save, Zap } fro
 import { AppShell } from "@/components/layout/AppShell";
 import { SectionCard } from "@/components/common/SectionCard";
 import { StatusBadge } from "@/components/common/StatusBadge";
-import { triggerLabels } from "@/data/automations";
-import { whatsappTemplates, emailTemplates } from "@/data/templates";
+import { triggerLabels } from "@/lib/labels";
+import { whatsappTemplates, emailTemplates } from "@/data/mocks/templates";
 import type { AutomationTrigger, Channel } from "@/types";
 import { cn } from "@/lib/utils";
 

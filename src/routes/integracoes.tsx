@@ -4,7 +4,7 @@ import { AlertTriangle, Plug, RefreshCw } from "lucide-react";
 import { AppShell } from "@/components/layout/AppShell";
 import { SectionCard } from "@/components/common/SectionCard";
 import { StatusBadge, humanize, statusTones } from "@/components/common/StatusBadge";
-import { integrations } from "@/data/integrations";
+import { integrations } from "@/data/mocks/integrations";
 
 export const Route = createFileRoute("/integracoes")({
   head: () => ({

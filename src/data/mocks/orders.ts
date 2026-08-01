@@ -12,6 +12,15 @@ export const orders: Order[] = [
     automation: "Pedido enviado + rastreio",
     lastMessage: "WhatsApp · há 2 h",
     createdAt: "2026-07-30T14:10:00Z",
+    customerEmail: "marina.costa@email.com",
+    customerPhone: "+55 51 98002-9911",
+    shippingCost: 24.9,
+    shippingAddress: "Rua das Acácias, 210 · Porto Alegre/RS",
+    deliveredAt: null,
+    items: [
+      { id: "it-1", name: "Kit skincare noturno", sku: "SK-014", quantity: 1, price: 289.9 },
+      { id: "it-2", name: "Sérum vitamina C 30ml", sku: "SK-021", quantity: 2, price: 223.75 },
+    ],
     timeline: [
       {
         id: "ev-1",
@@ -56,6 +65,12 @@ export const orders: Order[] = [
     automation: "Confirmação de pagamento",
     lastMessage: "E-mail · há 5 h",
     createdAt: "2026-07-31T11:22:00Z",
+    // Propositalmente sem customerEmail/customerPhone/items/deliveredAt: exercita "Não informado".
+    customerEmail: null,
+    customerPhone: null,
+    shippingCost: null,
+    shippingAddress: null,
+    deliveredAt: null,
     timeline: [
       {
         id: "ev-1",
@@ -85,6 +100,14 @@ export const orders: Order[] = [
     automation: "Lembrete de pagamento",
     lastMessage: "WhatsApp · há 1 dia",
     createdAt: "2026-07-29T19:02:00Z",
+    customerEmail: "ju.prado@email.com",
+    customerPhone: "+55 31 98450-7788",
+    shippingCost: 0,
+    shippingAddress: "Av. Afonso Pena, 1500 · Belo Horizonte/MG",
+    deliveredAt: null,
+    items: [
+      { id: "it-1", name: "Cadeira gamer Pro", sku: "MV-102", quantity: 1, price: 1240.5 },
+    ],
     timeline: [
       {
         id: "ev-1",
@@ -114,6 +137,14 @@ export const orders: Order[] = [
     automation: "Pedido cancelado — recuperação",
     lastMessage: "Falhou · há 2 dias",
     createdAt: "2026-07-28T08:31:00Z",
+    customerEmail: "rafa.souza@email.com",
+    customerPhone: "+55 41 99120-3345",
+    shippingCost: 18.5,
+    shippingAddress: "Rua XV de Novembro, 88 · Curitiba/PR",
+    deliveredAt: null,
+    items: [
+      { id: "it-1", name: "Fone bluetooth over-ear", sku: "AU-055", quantity: 1, price: 318.7 },
+    ],
     timeline: [
       {
         id: "ev-1",
@@ -143,6 +174,15 @@ export const orders: Order[] = [
     automation: "Pesquisa de satisfação",
     lastMessage: "E-mail · há 3 dias",
     createdAt: "2026-07-25T16:45:00Z",
+    customerEmail: "ana.lima@email.com",
+    customerPhone: "+55 11 98812-4471",
+    shippingCost: 15.0,
+    shippingAddress: "Rua Augusta, 900 · São Paulo/SP",
+    deliveredAt: "2026-07-27T10:11:00Z",
+    items: [
+      { id: "it-1", name: "Creme hidratante facial", sku: "SK-008", quantity: 3, price: 89.9 },
+      { id: "it-2", name: "Protetor solar FPS 60", sku: "SK-033", quantity: 1, price: 74.2 },
+    ],
     timeline: [
       {
         id: "ev-1",

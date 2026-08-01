@@ -7,7 +7,7 @@ import { FilterTabs } from "@/components/common/FilterTabs";
 import { SearchInput } from "@/components/common/SearchInput";
 import { Pagination } from "@/components/common/Pagination";
 import { StatusBadge, humanize, statusTones } from "@/components/common/StatusBadge";
-import { orders } from "@/data/orders";
+import { orders } from "@/data/mocks/orders";
 import { formatCurrency, formatDateTime } from "@/lib/format";
 import type { Order } from "@/types";
 

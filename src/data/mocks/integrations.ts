@@ -31,32 +31,3 @@ export const integrations: Integration[] = [
     lastSyncAt: "—",
   },
 ];
-
-export const whatsappConnection = {
-  connected: true,
-  phone: "+55 11 4002-8922",
-  businessName: "Loja Rush",
-  waba: "WABA-8842-1109",
-  quality: "Alta",
-  accountStatus: "Ativa",
-  messagingLimit: "10.000 conversas / 24h",
-  warnings: [
-    "Template recompra_kit_v1 aguarda aprovação da Meta.",
-    "Template pesquisa_satisfacao_v1 foi reprovado — revise o conteúdo.",
-  ],
-};
-
-export const emailConnection = {
-  connected: true,
-  senderName: "Loja Rush",
-  senderEmail: "contato@lojarush.com.br",
-  domain: "lojarush.com.br",
-  provider: "SMTP dedicado",
-  stats: [
-    { label: "Enviados (30d)", value: "18.420" },
-    { label: "Taxa de entrega", value: "97,8%" },
-    { label: "Taxa de abertura", value: "42,1%" },
-    { label: "Descadastros", value: "0,4%" },
-  ],
-  warnings: ["Registro DKIM pendente de verificação."],
-};
