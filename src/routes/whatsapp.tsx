@@ -4,7 +4,7 @@ import { AlertTriangle, MessageCircle, RefreshCw, ShieldCheck } from "lucide-rea
 import { AppShell } from "@/components/layout/AppShell";
 import { SectionCard } from "@/components/common/SectionCard";
 import { StatusBadge, humanize, statusTones } from "@/components/common/StatusBadge";
-import { whatsappConnection } from "@/data/mocks/integrations";
+import { whatsappConnection } from "@/data/mocks/connections";
 import { whatsappTemplates } from "@/data/mocks/templates";
 
 export const Route = createFileRoute("/whatsapp")({
