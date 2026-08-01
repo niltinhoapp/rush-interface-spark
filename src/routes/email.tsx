@@ -45,8 +45,8 @@ function EmailPage() {
             description="Identidade usada nos envios"
             actions={
               <StatusBadge
-                label={c.connected ? "Conectado" : "Desconectado"}
-                tone={c.connected ? "success" : "neutral"}
+                label={(c.status === "conectado") ? "Conectado" : "Desconectado"}
+                tone={(c.status === "conectado") ? "success" : "neutral"}
               />
             }
           >
