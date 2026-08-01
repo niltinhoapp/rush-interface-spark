@@ -9,10 +9,13 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as WhatsappRouteImport } from './routes/whatsapp'
 import { Route as TemplatesRouteImport } from './routes/templates'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ProdutosRouteImport } from './routes/produtos'
 import { Route as MensagensRouteImport } from './routes/mensagens'
+import { Route as IntegracoesRouteImport } from './routes/integracoes'
+import { Route as EmailRouteImport } from './routes/email'
 import { Route as CriativosRouteImport } from './routes/criativos'
 import { Route as ContatosRouteImport } from './routes/contatos'
 import { Route as ConfiguracoesRouteImport } from './routes/configuracoes'
@@ -24,6 +27,11 @@ import { Route as AutomacoesIndexRouteImport } from './routes/automacoes.index'
 import { Route as PedidosOrderIdRouteImport } from './routes/pedidos.$orderId'
 import { Route as AutomacoesNovaRouteImport } from './routes/automacoes.nova'
 
+const WhatsappRoute = WhatsappRouteImport.update({
+  id: '/whatsapp',
+  path: '/whatsapp',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TemplatesRoute = TemplatesRouteImport.update({
   id: '/templates',
   path: '/templates',
@@ -42,6 +50,16 @@ const ProdutosRoute = ProdutosRouteImport.update({
 const MensagensRoute = MensagensRouteImport.update({
   id: '/mensagens',
   path: '/mensagens',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IntegracoesRoute = IntegracoesRouteImport.update({
+  id: '/integracoes',
+  path: '/integracoes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EmailRoute = EmailRouteImport.update({
+  id: '/email',
+  path: '/email',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CriativosRoute = CriativosRouteImport.update({
@@ -102,10 +120,13 @@ export interface FileRoutesByFullPath {
   '/configuracoes': typeof ConfiguracoesRoute
   '/contatos': typeof ContatosRoute
   '/criativos': typeof CriativosRoute
+  '/email': typeof EmailRoute
+  '/integracoes': typeof IntegracoesRoute
   '/mensagens': typeof MensagensRoute
   '/produtos': typeof ProdutosRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/templates': typeof TemplatesRoute
+  '/whatsapp': typeof WhatsappRoute
   '/automacoes/nova': typeof AutomacoesNovaRoute
   '/pedidos/$orderId': typeof PedidosOrderIdRoute
   '/automacoes/': typeof AutomacoesIndexRoute
@@ -118,10 +139,13 @@ export interface FileRoutesByTo {
   '/configuracoes': typeof ConfiguracoesRoute
   '/contatos': typeof ContatosRoute
   '/criativos': typeof CriativosRoute
+  '/email': typeof EmailRoute
+  '/integracoes': typeof IntegracoesRoute
   '/mensagens': typeof MensagensRoute
   '/produtos': typeof ProdutosRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/templates': typeof TemplatesRoute
+  '/whatsapp': typeof WhatsappRoute
   '/automacoes/nova': typeof AutomacoesNovaRoute
   '/pedidos/$orderId': typeof PedidosOrderIdRoute
   '/automacoes': typeof AutomacoesIndexRoute
@@ -135,10 +159,13 @@ export interface FileRoutesById {
   '/configuracoes': typeof ConfiguracoesRoute
   '/contatos': typeof ContatosRoute
   '/criativos': typeof CriativosRoute
+  '/email': typeof EmailRoute
+  '/integracoes': typeof IntegracoesRoute
   '/mensagens': typeof MensagensRoute
   '/produtos': typeof ProdutosRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/templates': typeof TemplatesRoute
+  '/whatsapp': typeof WhatsappRoute
   '/automacoes/nova': typeof AutomacoesNovaRoute
   '/pedidos/$orderId': typeof PedidosOrderIdRoute
   '/automacoes/': typeof AutomacoesIndexRoute
@@ -153,10 +180,13 @@ export interface FileRouteTypes {
     | '/configuracoes'
     | '/contatos'
     | '/criativos'
+    | '/email'
+    | '/integracoes'
     | '/mensagens'
     | '/produtos'
     | '/sitemap.xml'
     | '/templates'
+    | '/whatsapp'
     | '/automacoes/nova'
     | '/pedidos/$orderId'
     | '/automacoes/'
@@ -169,10 +199,13 @@ export interface FileRouteTypes {
     | '/configuracoes'
     | '/contatos'
     | '/criativos'
+    | '/email'
+    | '/integracoes'
     | '/mensagens'
     | '/produtos'
     | '/sitemap.xml'
     | '/templates'
+    | '/whatsapp'
     | '/automacoes/nova'
     | '/pedidos/$orderId'
     | '/automacoes'
@@ -185,10 +218,13 @@ export interface FileRouteTypes {
     | '/configuracoes'
     | '/contatos'
     | '/criativos'
+    | '/email'
+    | '/integracoes'
     | '/mensagens'
     | '/produtos'
     | '/sitemap.xml'
     | '/templates'
+    | '/whatsapp'
     | '/automacoes/nova'
     | '/pedidos/$orderId'
     | '/automacoes/'
@@ -202,10 +238,13 @@ export interface RootRouteChildren {
   ConfiguracoesRoute: typeof ConfiguracoesRoute
   ContatosRoute: typeof ContatosRoute
   CriativosRoute: typeof CriativosRoute
+  EmailRoute: typeof EmailRoute
+  IntegracoesRoute: typeof IntegracoesRoute
   MensagensRoute: typeof MensagensRoute
   ProdutosRoute: typeof ProdutosRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TemplatesRoute: typeof TemplatesRoute
+  WhatsappRoute: typeof WhatsappRoute
   AutomacoesNovaRoute: typeof AutomacoesNovaRoute
   PedidosOrderIdRoute: typeof PedidosOrderIdRoute
   AutomacoesIndexRoute: typeof AutomacoesIndexRoute
@@ -214,6 +253,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/whatsapp': {
+      id: '/whatsapp'
+      path: '/whatsapp'
+      fullPath: '/whatsapp'
+      preLoaderRoute: typeof WhatsappRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/templates': {
       id: '/templates'
       path: '/templates'
@@ -240,6 +286,20 @@ declare module '@tanstack/react-router' {
       path: '/mensagens'
       fullPath: '/mensagens'
       preLoaderRoute: typeof MensagensRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/integracoes': {
+      id: '/integracoes'
+      path: '/integracoes'
+      fullPath: '/integracoes'
+      preLoaderRoute: typeof IntegracoesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/email': {
+      id: '/email'
+      path: '/email'
+      fullPath: '/email'
+      preLoaderRoute: typeof EmailRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/criativos': {
@@ -322,10 +382,13 @@ const rootRouteChildren: RootRouteChildren = {
   ConfiguracoesRoute: ConfiguracoesRoute,
   ContatosRoute: ContatosRoute,
   CriativosRoute: CriativosRoute,
+  EmailRoute: EmailRoute,
+  IntegracoesRoute: IntegracoesRoute,
   MensagensRoute: MensagensRoute,
   ProdutosRoute: ProdutosRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TemplatesRoute: TemplatesRoute,
+  WhatsappRoute: WhatsappRoute,
   AutomacoesNovaRoute: AutomacoesNovaRoute,
   PedidosOrderIdRoute: PedidosOrderIdRoute,
   AutomacoesIndexRoute: AutomacoesIndexRoute,
