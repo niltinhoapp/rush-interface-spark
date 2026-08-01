@@ -78,6 +78,14 @@ export interface OrderEvent {
   tone: "info" | "success" | "warning" | "error";
 }
 
+export interface OrderItem {
+  id: string;
+  name: string;
+  sku?: string | null;
+  quantity: number;
+  price: number;
+}
+
 export interface Order {
   id: string;
   number: string;
@@ -90,6 +98,13 @@ export interface Order {
   lastMessage: string;
   createdAt: string;
   timeline: OrderEvent[];
+  /** Campos opcionais: podem não vir do backend — exibir "Não informado". */
+  customerEmail?: string | null;
+  customerPhone?: string | null;
+  items?: OrderItem[];
+  shippingCost?: number | null;
+  deliveredAt?: string | null;
+  shippingAddress?: string | null;
 }
 
 export type ConsentStatus = "aceito" | "pendente" | "recusado";
