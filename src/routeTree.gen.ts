@@ -9,26 +9,54 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as WhatsappRouteImport } from './routes/whatsapp'
+import { Route as TemplatesRouteImport } from './routes/templates'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
-import { Route as ProdutosRouteImport } from './routes/produtos'
-import { Route as CriativosRouteImport } from './routes/criativos'
+import { Route as MensagensRouteImport } from './routes/mensagens'
+import { Route as IntegracoesRouteImport } from './routes/integracoes'
+import { Route as EmailRouteImport } from './routes/email'
+import { Route as ContatosRouteImport } from './routes/contatos'
 import { Route as ConfiguracoesRouteImport } from './routes/configuracoes'
-import { Route as CampanhasRouteImport } from './routes/campanhas'
+import { Route as CarrinhosRouteImport } from './routes/carrinhos'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as PedidosIndexRouteImport } from './routes/pedidos.index'
+import { Route as AutomacoesIndexRouteImport } from './routes/automacoes.index'
+import { Route as PedidosOrderIdRouteImport } from './routes/pedidos.$orderId'
+import { Route as AutomacoesNovaRouteImport } from './routes/automacoes.nova'
 
+const WhatsappRoute = WhatsappRouteImport.update({
+  id: '/whatsapp',
+  path: '/whatsapp',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TemplatesRoute = TemplatesRouteImport.update({
+  id: '/templates',
+  path: '/templates',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ProdutosRoute = ProdutosRouteImport.update({
-  id: '/produtos',
-  path: '/produtos',
+const MensagensRoute = MensagensRouteImport.update({
+  id: '/mensagens',
+  path: '/mensagens',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CriativosRoute = CriativosRouteImport.update({
-  id: '/criativos',
-  path: '/criativos',
+const IntegracoesRoute = IntegracoesRouteImport.update({
+  id: '/integracoes',
+  path: '/integracoes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EmailRoute = EmailRouteImport.update({
+  id: '/email',
+  path: '/email',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContatosRoute = ContatosRouteImport.update({
+  id: '/contatos',
+  path: '/contatos',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ConfiguracoesRoute = ConfiguracoesRouteImport.update({
@@ -36,9 +64,9 @@ const ConfiguracoesRoute = ConfiguracoesRouteImport.update({
   path: '/configuracoes',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CampanhasRoute = CampanhasRouteImport.update({
-  id: '/campanhas',
-  path: '/campanhas',
+const CarrinhosRoute = CarrinhosRouteImport.update({
+  id: '/carrinhos',
+  path: '/carrinhos',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -46,70 +74,160 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PedidosIndexRoute = PedidosIndexRouteImport.update({
+  id: '/pedidos/',
+  path: '/pedidos/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AutomacoesIndexRoute = AutomacoesIndexRouteImport.update({
+  id: '/automacoes/',
+  path: '/automacoes/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PedidosOrderIdRoute = PedidosOrderIdRouteImport.update({
+  id: '/pedidos/$orderId',
+  path: '/pedidos/$orderId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AutomacoesNovaRoute = AutomacoesNovaRouteImport.update({
+  id: '/automacoes/nova',
+  path: '/automacoes/nova',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/campanhas': typeof CampanhasRoute
+  '/carrinhos': typeof CarrinhosRoute
   '/configuracoes': typeof ConfiguracoesRoute
-  '/criativos': typeof CriativosRoute
-  '/produtos': typeof ProdutosRoute
+  '/contatos': typeof ContatosRoute
+  '/email': typeof EmailRoute
+  '/integracoes': typeof IntegracoesRoute
+  '/mensagens': typeof MensagensRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/templates': typeof TemplatesRoute
+  '/whatsapp': typeof WhatsappRoute
+  '/automacoes/nova': typeof AutomacoesNovaRoute
+  '/pedidos/$orderId': typeof PedidosOrderIdRoute
+  '/automacoes/': typeof AutomacoesIndexRoute
+  '/pedidos/': typeof PedidosIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/campanhas': typeof CampanhasRoute
+  '/carrinhos': typeof CarrinhosRoute
   '/configuracoes': typeof ConfiguracoesRoute
-  '/criativos': typeof CriativosRoute
-  '/produtos': typeof ProdutosRoute
+  '/contatos': typeof ContatosRoute
+  '/email': typeof EmailRoute
+  '/integracoes': typeof IntegracoesRoute
+  '/mensagens': typeof MensagensRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/templates': typeof TemplatesRoute
+  '/whatsapp': typeof WhatsappRoute
+  '/automacoes/nova': typeof AutomacoesNovaRoute
+  '/pedidos/$orderId': typeof PedidosOrderIdRoute
+  '/automacoes': typeof AutomacoesIndexRoute
+  '/pedidos': typeof PedidosIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/campanhas': typeof CampanhasRoute
+  '/carrinhos': typeof CarrinhosRoute
   '/configuracoes': typeof ConfiguracoesRoute
-  '/criativos': typeof CriativosRoute
-  '/produtos': typeof ProdutosRoute
+  '/contatos': typeof ContatosRoute
+  '/email': typeof EmailRoute
+  '/integracoes': typeof IntegracoesRoute
+  '/mensagens': typeof MensagensRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/templates': typeof TemplatesRoute
+  '/whatsapp': typeof WhatsappRoute
+  '/automacoes/nova': typeof AutomacoesNovaRoute
+  '/pedidos/$orderId': typeof PedidosOrderIdRoute
+  '/automacoes/': typeof AutomacoesIndexRoute
+  '/pedidos/': typeof PedidosIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/campanhas'
+    | '/carrinhos'
     | '/configuracoes'
-    | '/criativos'
-    | '/produtos'
+    | '/contatos'
+    | '/email'
+    | '/integracoes'
+    | '/mensagens'
     | '/sitemap.xml'
+    | '/templates'
+    | '/whatsapp'
+    | '/automacoes/nova'
+    | '/pedidos/$orderId'
+    | '/automacoes/'
+    | '/pedidos/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/campanhas'
+    | '/carrinhos'
     | '/configuracoes'
-    | '/criativos'
-    | '/produtos'
+    | '/contatos'
+    | '/email'
+    | '/integracoes'
+    | '/mensagens'
     | '/sitemap.xml'
+    | '/templates'
+    | '/whatsapp'
+    | '/automacoes/nova'
+    | '/pedidos/$orderId'
+    | '/automacoes'
+    | '/pedidos'
   id:
     | '__root__'
     | '/'
-    | '/campanhas'
+    | '/carrinhos'
     | '/configuracoes'
-    | '/criativos'
-    | '/produtos'
+    | '/contatos'
+    | '/email'
+    | '/integracoes'
+    | '/mensagens'
     | '/sitemap.xml'
+    | '/templates'
+    | '/whatsapp'
+    | '/automacoes/nova'
+    | '/pedidos/$orderId'
+    | '/automacoes/'
+    | '/pedidos/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  CampanhasRoute: typeof CampanhasRoute
+  CarrinhosRoute: typeof CarrinhosRoute
   ConfiguracoesRoute: typeof ConfiguracoesRoute
-  CriativosRoute: typeof CriativosRoute
-  ProdutosRoute: typeof ProdutosRoute
+  ContatosRoute: typeof ContatosRoute
+  EmailRoute: typeof EmailRoute
+  IntegracoesRoute: typeof IntegracoesRoute
+  MensagensRoute: typeof MensagensRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  TemplatesRoute: typeof TemplatesRoute
+  WhatsappRoute: typeof WhatsappRoute
+  AutomacoesNovaRoute: typeof AutomacoesNovaRoute
+  PedidosOrderIdRoute: typeof PedidosOrderIdRoute
+  AutomacoesIndexRoute: typeof AutomacoesIndexRoute
+  PedidosIndexRoute: typeof PedidosIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/whatsapp': {
+      id: '/whatsapp'
+      path: '/whatsapp'
+      fullPath: '/whatsapp'
+      preLoaderRoute: typeof WhatsappRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/templates': {
+      id: '/templates'
+      path: '/templates'
+      fullPath: '/templates'
+      preLoaderRoute: typeof TemplatesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sitemap.xml': {
       id: '/sitemap.xml'
       path: '/sitemap.xml'
@@ -117,18 +235,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/produtos': {
-      id: '/produtos'
-      path: '/produtos'
-      fullPath: '/produtos'
-      preLoaderRoute: typeof ProdutosRouteImport
+    '/mensagens': {
+      id: '/mensagens'
+      path: '/mensagens'
+      fullPath: '/mensagens'
+      preLoaderRoute: typeof MensagensRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/criativos': {
-      id: '/criativos'
-      path: '/criativos'
-      fullPath: '/criativos'
-      preLoaderRoute: typeof CriativosRouteImport
+    '/integracoes': {
+      id: '/integracoes'
+      path: '/integracoes'
+      fullPath: '/integracoes'
+      preLoaderRoute: typeof IntegracoesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/email': {
+      id: '/email'
+      path: '/email'
+      fullPath: '/email'
+      preLoaderRoute: typeof EmailRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contatos': {
+      id: '/contatos'
+      path: '/contatos'
+      fullPath: '/contatos'
+      preLoaderRoute: typeof ContatosRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/configuracoes': {
@@ -138,11 +270,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ConfiguracoesRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/campanhas': {
-      id: '/campanhas'
-      path: '/campanhas'
-      fullPath: '/campanhas'
-      preLoaderRoute: typeof CampanhasRouteImport
+    '/carrinhos': {
+      id: '/carrinhos'
+      path: '/carrinhos'
+      fullPath: '/carrinhos'
+      preLoaderRoute: typeof CarrinhosRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -152,16 +284,52 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/pedidos/': {
+      id: '/pedidos/'
+      path: '/pedidos'
+      fullPath: '/pedidos/'
+      preLoaderRoute: typeof PedidosIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/automacoes/': {
+      id: '/automacoes/'
+      path: '/automacoes'
+      fullPath: '/automacoes/'
+      preLoaderRoute: typeof AutomacoesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pedidos/$orderId': {
+      id: '/pedidos/$orderId'
+      path: '/pedidos/$orderId'
+      fullPath: '/pedidos/$orderId'
+      preLoaderRoute: typeof PedidosOrderIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/automacoes/nova': {
+      id: '/automacoes/nova'
+      path: '/automacoes/nova'
+      fullPath: '/automacoes/nova'
+      preLoaderRoute: typeof AutomacoesNovaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  CampanhasRoute: CampanhasRoute,
+  CarrinhosRoute: CarrinhosRoute,
   ConfiguracoesRoute: ConfiguracoesRoute,
-  CriativosRoute: CriativosRoute,
-  ProdutosRoute: ProdutosRoute,
+  ContatosRoute: ContatosRoute,
+  EmailRoute: EmailRoute,
+  IntegracoesRoute: IntegracoesRoute,
+  MensagensRoute: MensagensRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  TemplatesRoute: TemplatesRoute,
+  WhatsappRoute: WhatsappRoute,
+  AutomacoesNovaRoute: AutomacoesNovaRoute,
+  PedidosOrderIdRoute: PedidosOrderIdRoute,
+  AutomacoesIndexRoute: AutomacoesIndexRoute,
+  PedidosIndexRoute: PedidosIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
