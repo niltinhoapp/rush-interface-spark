@@ -207,3 +207,7 @@ export interface DashboardMetrics {
   executions: ExecutionLog[];
   attention: Automation[];
 }
+
+export * from "./automation-flow";
+export * from "./filters";
+export * from "./connections";
