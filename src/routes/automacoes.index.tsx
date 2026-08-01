@@ -19,7 +19,8 @@ import { FilterTabs } from "@/components/common/FilterTabs";
 import { SearchInput } from "@/components/common/SearchInput";
 import { StatusBadge, humanize, statusTones } from "@/components/common/StatusBadge";
 import { ConfirmDialog } from "@/components/common/ConfirmDialog";
-import { automations as allAutomations, categoryLabels, triggerLabels } from "@/data/mocks/automations";
+import { automations as allAutomations } from "@/data/mocks/automations";
+import { categoryLabels, triggerLabels } from "@/lib/labels";
 import { formatDateTime, formatNumber } from "@/lib/format";
 import type { Automation } from "@/types";
 
