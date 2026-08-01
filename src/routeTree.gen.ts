@@ -12,15 +12,12 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as WhatsappRouteImport } from './routes/whatsapp'
 import { Route as TemplatesRouteImport } from './routes/templates'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
-import { Route as ProdutosRouteImport } from './routes/produtos'
 import { Route as MensagensRouteImport } from './routes/mensagens'
 import { Route as IntegracoesRouteImport } from './routes/integracoes'
 import { Route as EmailRouteImport } from './routes/email'
-import { Route as CriativosRouteImport } from './routes/criativos'
 import { Route as ContatosRouteImport } from './routes/contatos'
 import { Route as ConfiguracoesRouteImport } from './routes/configuracoes'
 import { Route as CarrinhosRouteImport } from './routes/carrinhos'
-import { Route as CampanhasRouteImport } from './routes/campanhas'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PedidosIndexRouteImport } from './routes/pedidos.index'
 import { Route as AutomacoesIndexRouteImport } from './routes/automacoes.index'
@@ -42,11 +39,6 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ProdutosRoute = ProdutosRouteImport.update({
-  id: '/produtos',
-  path: '/produtos',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const MensagensRoute = MensagensRouteImport.update({
   id: '/mensagens',
   path: '/mensagens',
@@ -62,11 +54,6 @@ const EmailRoute = EmailRouteImport.update({
   path: '/email',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CriativosRoute = CriativosRouteImport.update({
-  id: '/criativos',
-  path: '/criativos',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const ContatosRoute = ContatosRouteImport.update({
   id: '/contatos',
   path: '/contatos',
@@ -80,11 +67,6 @@ const ConfiguracoesRoute = ConfiguracoesRouteImport.update({
 const CarrinhosRoute = CarrinhosRouteImport.update({
   id: '/carrinhos',
   path: '/carrinhos',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CampanhasRoute = CampanhasRouteImport.update({
-  id: '/campanhas',
-  path: '/campanhas',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -115,15 +97,12 @@ const AutomacoesNovaRoute = AutomacoesNovaRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/campanhas': typeof CampanhasRoute
   '/carrinhos': typeof CarrinhosRoute
   '/configuracoes': typeof ConfiguracoesRoute
   '/contatos': typeof ContatosRoute
-  '/criativos': typeof CriativosRoute
   '/email': typeof EmailRoute
   '/integracoes': typeof IntegracoesRoute
   '/mensagens': typeof MensagensRoute
-  '/produtos': typeof ProdutosRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/templates': typeof TemplatesRoute
   '/whatsapp': typeof WhatsappRoute
@@ -134,15 +113,12 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/campanhas': typeof CampanhasRoute
   '/carrinhos': typeof CarrinhosRoute
   '/configuracoes': typeof ConfiguracoesRoute
   '/contatos': typeof ContatosRoute
-  '/criativos': typeof CriativosRoute
   '/email': typeof EmailRoute
   '/integracoes': typeof IntegracoesRoute
   '/mensagens': typeof MensagensRoute
-  '/produtos': typeof ProdutosRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/templates': typeof TemplatesRoute
   '/whatsapp': typeof WhatsappRoute
@@ -154,15 +130,12 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/campanhas': typeof CampanhasRoute
   '/carrinhos': typeof CarrinhosRoute
   '/configuracoes': typeof ConfiguracoesRoute
   '/contatos': typeof ContatosRoute
-  '/criativos': typeof CriativosRoute
   '/email': typeof EmailRoute
   '/integracoes': typeof IntegracoesRoute
   '/mensagens': typeof MensagensRoute
-  '/produtos': typeof ProdutosRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/templates': typeof TemplatesRoute
   '/whatsapp': typeof WhatsappRoute
@@ -175,15 +148,12 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/campanhas'
     | '/carrinhos'
     | '/configuracoes'
     | '/contatos'
-    | '/criativos'
     | '/email'
     | '/integracoes'
     | '/mensagens'
-    | '/produtos'
     | '/sitemap.xml'
     | '/templates'
     | '/whatsapp'
@@ -194,15 +164,12 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/campanhas'
     | '/carrinhos'
     | '/configuracoes'
     | '/contatos'
-    | '/criativos'
     | '/email'
     | '/integracoes'
     | '/mensagens'
-    | '/produtos'
     | '/sitemap.xml'
     | '/templates'
     | '/whatsapp'
@@ -213,15 +180,12 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
-    | '/campanhas'
     | '/carrinhos'
     | '/configuracoes'
     | '/contatos'
-    | '/criativos'
     | '/email'
     | '/integracoes'
     | '/mensagens'
-    | '/produtos'
     | '/sitemap.xml'
     | '/templates'
     | '/whatsapp'
@@ -233,15 +197,12 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  CampanhasRoute: typeof CampanhasRoute
   CarrinhosRoute: typeof CarrinhosRoute
   ConfiguracoesRoute: typeof ConfiguracoesRoute
   ContatosRoute: typeof ContatosRoute
-  CriativosRoute: typeof CriativosRoute
   EmailRoute: typeof EmailRoute
   IntegracoesRoute: typeof IntegracoesRoute
   MensagensRoute: typeof MensagensRoute
-  ProdutosRoute: typeof ProdutosRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TemplatesRoute: typeof TemplatesRoute
   WhatsappRoute: typeof WhatsappRoute
@@ -274,13 +235,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/produtos': {
-      id: '/produtos'
-      path: '/produtos'
-      fullPath: '/produtos'
-      preLoaderRoute: typeof ProdutosRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/mensagens': {
       id: '/mensagens'
       path: '/mensagens'
@@ -302,13 +256,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EmailRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/criativos': {
-      id: '/criativos'
-      path: '/criativos'
-      fullPath: '/criativos'
-      preLoaderRoute: typeof CriativosRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/contatos': {
       id: '/contatos'
       path: '/contatos'
@@ -328,13 +275,6 @@ declare module '@tanstack/react-router' {
       path: '/carrinhos'
       fullPath: '/carrinhos'
       preLoaderRoute: typeof CarrinhosRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/campanhas': {
-      id: '/campanhas'
-      path: '/campanhas'
-      fullPath: '/campanhas'
-      preLoaderRoute: typeof CampanhasRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -377,15 +317,12 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  CampanhasRoute: CampanhasRoute,
   CarrinhosRoute: CarrinhosRoute,
   ConfiguracoesRoute: ConfiguracoesRoute,
   ContatosRoute: ContatosRoute,
-  CriativosRoute: CriativosRoute,
   EmailRoute: EmailRoute,
   IntegracoesRoute: IntegracoesRoute,
   MensagensRoute: MensagensRoute,
-  ProdutosRoute: ProdutosRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TemplatesRoute: TemplatesRoute,
   WhatsappRoute: WhatsappRoute,
