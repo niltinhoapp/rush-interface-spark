@@ -1,26 +1,4 @@
-import type { Automation, AutomationCategory, AutomationTrigger, Channel } from "@/types";
-
-export const triggerLabels: Record<AutomationTrigger, string> = {
-  pedido_criado: "Pedido criado",
-  pedido_pago: "Pedido pago",
-  pedido_enviado: "Pedido enviado",
-  pedido_cancelado: "Pedido cancelado",
-  carrinho_abandonado: "Carrinho abandonado",
-  pos_compra: "Pós-compra",
-  recompra: "Recompra após período",
-};
-
-export const categoryLabels: Record<AutomationCategory, string> = {
-  carrinho: "Carrinho abandonado",
-  pos_venda: "Pós-venda",
-  rastreio: "Rastreio",
-  recompra: "Recompra",
-};
-
-export const channelLabels: Record<Channel, string> = {
-  whatsapp: "WhatsApp",
-  email: "E-mail",
-};
+import type { Automation } from "@/types";
 
 export const automations: Automation[] = [
   {
