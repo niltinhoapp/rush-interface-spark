@@ -124,7 +124,79 @@ export interface Flow {
   status: AutomationStatus;
 }
 
-/** Payload mínimo persistido pelo backend. */
-export type FlowPayload = Pick<Flow, "trigger" | "steps">;
-
 export type FlowErrors = Record<string, string>;
+
+/* ------------------------------------------------------------------ */
+/* Modelo OFICIAL do backend (wire format nuvem-rush/types/index.ts).   */
+/* A UI edita `Flow` (pt-BR, delay como passo próprio); ao salvar,      */
+/* `toFlowPayload` converte para as estruturas abaixo.                  */
+/* ------------------------------------------------------------------ */
+
+/** Ação oficial — `delay` NÃO é ação, é campo obrigatório do step. */
+export type ApiActionType = "email" | "whatsapp" | "tag" | "webhook" | "task";
+
+export type DelayUnit = "minutes" | "hours" | "days";
+
+export type ApiTriggerEvent =
+  | "order_paid"
+  | "order_created"
+  | "order_fulfilled"
+  | "cart_abandoned";
+
+export type ApiConditionMatch = "all" | "any";
+
+export type ApiConditionOp = "eq" | "neq" | "gt" | "gte" | "lt" | "lte" | "in" | "contains";
+
+export type ApiConditionField =
+  | "order.total"
+  | "order.itemsCount"
+  | "item.sku"
+  | "item.productId"
+  | "item.category"
+  | "item.brand"
+  | "customer.type";
+
+/** Valores aceitos por `customer.type`. */
+export type ApiCustomerType = "first_purchase" | "recurring";
+
+export interface ApiCondition {
+  field: ApiConditionField;
+  op: ApiConditionOp;
+  value: ConditionValue;
+}
+
+export interface ApiTrigger {
+  event: ApiTriggerEvent;
+  match: ApiConditionMatch;
+  conditions: ApiCondition[];
+}
+
+export interface ApiStep {
+  /** Sempre presente: o "quando" do passo. */
+  delay: { value: number; unit: DelayUnit };
+  /** O "o quê". */
+  action: ApiActionType;
+  templateId?: string;
+  /** Se preenchido, conteúdo gerado por IA. */
+  aiPrompt?: string;
+  /** Config específica da ação (tag, url do webhook, remetente, etc.). */
+  config?: Record<string, unknown>;
+}
+
+export type ApiFlowStatus = "active" | "paused" | "draft";
+
+/** Payload de create/update. Os demais campos (flowId, stats, createdAt) são do servidor. */
+export interface FlowPayload {
+  name: string;
+  status: ApiFlowStatus;
+  trigger: ApiTrigger;
+  steps: ApiStep[];
+}
+
+/** Documento completo devolvido pelo backend. */
+export interface ApiFlow extends FlowPayload {
+  flowId: string;
+  stats?: Record<string, number>;
+  createdAt?: string;
+}
+
