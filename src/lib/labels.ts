@@ -138,7 +138,7 @@ export const numericConditionFields: ConditionField[] = [
   "quantidade_itens",
 ];
 
-/** @deprecated use actionTypeLabels */
+
 export const actionTypeLabels: Record<ActionType, string> = {
   delay: "Esperar",
   send_whatsapp: "Enviar WhatsApp",
@@ -178,3 +178,6 @@ export function humanizeStatus(value: string | null | undefined): string {
   if (!value) return NOT_PROVIDED;
   return genericLabels[value] ?? value.replace(/_/g, " ");
 }
+
+/** @deprecated compatibilidade — use `actionTypeLabels`. */
+export const stepKindLabels = actionTypeLabels;

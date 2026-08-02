@@ -114,7 +114,7 @@ function toFlow(automation: Automation): Flow {
     conditions: [],
     steps: [
       { id: `${automation.id}-delay`, type: "delay", amount: 30, unit: "minutos" },
-      automation.channel === "send_whatsapp"
+      automation.channel === "whatsapp"
         ? {
             id: `${automation.id}-msg`,
             type: "send_whatsapp",
