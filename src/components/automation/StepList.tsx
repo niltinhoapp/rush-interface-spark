@@ -14,30 +14,30 @@ import type { ComponentType } from "react";
 import { SectionCard } from "@/components/common/SectionCard";
 import { Field, fieldInputClass } from "@/components/common/Field";
 import { Button } from "@/components/ui/button";
-import { stepKindLabels, timeUnitLabels, webhookMethods } from "@/lib/labels";
+import { actionTypeLabels, timeUnitLabels, webhookMethods } from "@/lib/labels";
 import { createStep, duplicateStep, moveStep, nextId } from "@/features/automations/lib/flow";
 import type {
-  AutomationStep,
-  AutomationStepKind,
+  Step,
+  ActionType,
   FlowErrors,
   TimeUnit,
   WebhookMethod,
-} from "@/types/automation-flow";
+} from "@/types/flow";
 import type { EmailSender } from "@/types/connections";
 import type { EmailTemplate, WhatsappTemplate } from "@/types";
 import { cn } from "@/lib/utils";
 
-const stepIcons: Record<AutomationStepKind, ComponentType<{ className?: string }>> = {
+const stepIcons: Record<ActionType, ComponentType<{ className?: string }>> = {
   delay: Clock,
-  whatsapp: MessageCircle,
-  email: Mail,
-  tag: Tag,
+  send_whatsapp: MessageCircle,
+  send_email: Mail,
+  add_tag: Tag,
   webhook: Webhook,
 };
 
 interface StepListProps {
-  steps: AutomationStep[];
-  onChange: (steps: AutomationStep[]) => void;
+  steps: Step[];
+  onChange: (steps: Step[]) => void;
   errors: FlowErrors;
   whatsappTemplates: WhatsappTemplate[];
   emailTemplates: EmailTemplate[];
@@ -54,8 +54,8 @@ export function StepList({
   senders,
   loadingResources,
 }: StepListProps) {
-  const patch = (id: string, value: Partial<AutomationStep>) =>
-    onChange(steps.map((s) => (s.id === id ? ({ ...s, ...value } as AutomationStep) : s)));
+  const patch = (id: string, value: Partial<Step>) =>
+    onChange(steps.map((s) => (s.id === id ? ({ ...s, ...value } as Step) : s)));
 
   return (
     <SectionCard
@@ -71,7 +71,7 @@ export function StepList({
 
       <ol className="space-y-3">
         {steps.map((step, index) => {
-          const Icon = stepIcons[step.kind];
+          const Icon = stepIcons[step.type];
           return (
             <li key={step.id} className="rounded-2xl border border-border bg-card">
               <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border px-4 py-3">
@@ -81,10 +81,10 @@ export function StepList({
                   </span>
                   <div className="min-w-0">
                     <p className="truncate text-sm font-medium">
-                      {index + 1}. {stepKindLabels[step.kind]}
+                      {index + 1}. {actionTypeLabels[step.type]}
                     </p>
                     <p className="truncate text-xs text-muted-foreground">
-                      {step.kind === "delay" ? "Espera antes da próxima ação" : "Ação do fluxo"}
+                      {step.type === "delay" ? "Espera antes da próxima ação" : "Ação do fluxo"}
                     </p>
                   </div>
                 </div>
@@ -155,7 +155,7 @@ export function StepList({
       </ol>
 
       <div className="flex flex-wrap gap-2 pt-1">
-        {(Object.keys(stepKindLabels) as AutomationStepKind[]).map((kind) => {
+        {(Object.keys(actionTypeLabels) as ActionType[]).map((kind) => {
           const Icon = stepIcons[kind];
           return (
             <Button
@@ -167,7 +167,7 @@ export function StepList({
             >
               <Plus className="size-3.5" />
               <Icon className="size-3.5" />
-              {stepKindLabels[kind]}
+              {actionTypeLabels[kind]}
             </Button>
           );
         })}
@@ -185,9 +185,9 @@ function StepEditor({
   senders,
   loadingResources,
 }: {
-  step: AutomationStep;
+  step: Step;
   errors: FlowErrors;
-  onPatch: (value: Partial<AutomationStep>) => void;
+  onPatch: (value: Partial<Step>) => void;
   whatsappTemplates: WhatsappTemplate[];
   emailTemplates: EmailTemplate[];
   senders: EmailSender[];
@@ -195,7 +195,7 @@ function StepEditor({
 }) {
   const error = (field: string) => errors[`step:${step.id}:${field}`];
 
-  if (step.kind === "delay") {
+  if (step.type === "delay") {
     return (
       <div className="grid gap-3 sm:grid-cols-[140px_180px]">
         <Field id={`${step.id}-amount`} label="Esperar" error={error("amount")}>
@@ -230,7 +230,7 @@ function StepEditor({
     );
   }
 
-  if (step.kind === "whatsapp") {
+  if (step.type === "send_whatsapp") {
     const template = whatsappTemplates.find((t) => t.id === step.templateId);
     return (
       <div className="grid gap-3">
@@ -293,7 +293,7 @@ function StepEditor({
     );
   }
 
-  if (step.kind === "email") {
+  if (step.type === "send_email") {
     const template = emailTemplates.find((t) => t.id === step.templateId);
     return (
       <div className="grid gap-3">
@@ -367,7 +367,7 @@ function StepEditor({
     );
   }
 
-  if (step.kind === "tag") {
+  if (step.type === "add_tag") {
     return (
       <div className="grid gap-3 sm:grid-cols-[1fr_200px]">
         <Field id={`${step.id}-tag`} label="Tag do contato" error={error("tag")}>

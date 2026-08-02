@@ -2,10 +2,10 @@ import { SectionCard } from "@/components/common/SectionCard";
 import { StatusBadge } from "@/components/common/StatusBadge";
 import { conditionFieldLabels, conditionOperatorLabels, triggerLabels } from "@/lib/labels";
 import { describeFlow } from "@/features/automations/lib/flow";
-import type { AutomationFlow } from "@/types/automation-flow";
+import type { Flow } from "@/types/flow";
 
 /** Resumo lateral do fluxo, sempre visível durante a edição. */
-export function FlowSummary({ flow, invalid }: { flow: AutomationFlow; invalid: number }) {
+export function FlowSummary({ flow, invalid }: { flow: Flow; invalid: number }) {
   const steps = describeFlow(flow);
 
   return (

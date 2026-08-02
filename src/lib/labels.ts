@@ -15,12 +15,12 @@ import type {
   TemplateApproval,
 } from "@/types";
 import type {
-  AutomationConditionField,
-  AutomationConditionOperator,
-  AutomationStepKind,
+  ConditionField,
+  ConditionOperator,
+  ActionType,
   TimeUnit,
   WebhookMethod,
-} from "@/types/automation-flow";
+} from "@/types/flow";
 import type { PeriodPreset } from "@/types/filters";
 
 export const triggerLabels: Record<AutomationTrigger, string> = {
@@ -105,7 +105,7 @@ export const integrationStatusLabels: Record<IntegrationStatus, string> = {
   atencao: "Atenção",
 };
 
-export const conditionFieldLabels: Record<AutomationConditionField, string> = {
+export const conditionFieldLabels: Record<ConditionField, string> = {
   produto: "Produto",
   sku: "SKU",
   categoria: "Categoria",
@@ -119,7 +119,7 @@ export const conditionFieldLabels: Record<AutomationConditionField, string> = {
   consentimento: "Consentimento para comunicação",
 };
 
-export const conditionOperatorLabels: Record<AutomationConditionOperator, string> = {
+export const conditionOperatorLabels: Record<ConditionOperator, string> = {
   eq: "Igual a",
   neq: "Diferente de",
   contains: "Contém",
@@ -133,16 +133,17 @@ export const conditionOperatorLabels: Record<AutomationConditionOperator, string
 };
 
 /** Operadores permitidos por tipo de campo — apenas orientação visual. */
-export const numericConditionFields: AutomationConditionField[] = [
+export const numericConditionFields: ConditionField[] = [
   "valor_pedido",
   "quantidade_itens",
 ];
 
-export const stepKindLabels: Record<AutomationStepKind, string> = {
+
+export const actionTypeLabels: Record<ActionType, string> = {
   delay: "Esperar",
-  whatsapp: "Enviar WhatsApp",
-  email: "Enviar e-mail",
-  tag: "Adicionar ou remover tag",
+  send_whatsapp: "Enviar WhatsApp",
+  send_email: "Enviar e-mail",
+  add_tag: "Adicionar ou remover tag",
   webhook: "Chamar webhook",
 };
 
@@ -177,3 +178,6 @@ export function humanizeStatus(value: string | null | undefined): string {
   if (!value) return NOT_PROVIDED;
   return genericLabels[value] ?? value.replace(/_/g, " ");
 }
+
+/** @deprecated compatibilidade — use `actionTypeLabels`. */
+export const stepKindLabels = actionTypeLabels;

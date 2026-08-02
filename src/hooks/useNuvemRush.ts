@@ -21,7 +21,7 @@ import type {
   PeriodFilter,
   WhatsappTemplate,
 } from "@/types";
-import type { AutomationFlow } from "@/types/automation-flow";
+import type { Flow } from "@/types/flow";
 import { useAsyncData } from "./useAsyncData";
 import { useListResource } from "./useListResource";
 
@@ -44,8 +44,8 @@ export function useAutomation(id: string | null) {
   );
 }
 
-export function useAutomationFlow(id: string | null) {
-  return useAsyncData<AutomationFlow | null>(
+export function useFlow(id: string | null) {
+  return useAsyncData<Flow | null>(
     () => (id ? services.automations.getFlow(id) : Promise.resolve(null)),
     [id],
   );

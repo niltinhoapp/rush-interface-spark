@@ -2,7 +2,7 @@ import { SectionCard } from "@/components/common/SectionCard";
 import { Field, fieldInputClass } from "@/components/common/Field";
 import { timeUnitLabels, triggerLabels, triggersWithOffset } from "@/lib/labels";
 import type { AutomationTrigger } from "@/types";
-import type { AutomationTriggerConfig, FlowErrors, TimeUnit } from "@/types/automation-flow";
+import type { Trigger, FlowErrors, TimeUnit } from "@/types/flow";
 import { cn } from "@/lib/utils";
 
 const triggerOrder: AutomationTrigger[] = [
@@ -20,8 +20,8 @@ export function TriggerSection({
   onChange,
   errors,
 }: {
-  value: AutomationTriggerConfig;
-  onChange: (value: AutomationTriggerConfig) => void;
+  value: Trigger;
+  onChange: (value: Trigger) => void;
   errors: FlowErrors;
 }) {
   const needsOffset = triggersWithOffset.includes(value.type);

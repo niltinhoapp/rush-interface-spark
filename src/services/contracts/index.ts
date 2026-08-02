@@ -30,10 +30,10 @@ import type {
   IntegrationTestResult,
   WhatsappConnection,
 } from "@/types/connections";
-import type { AutomationFlow } from "@/types/automation-flow";
+import type { Flow } from "@/types/flow";
 
-export type CreateAutomationInput = AutomationFlow;
-export type UpdateAutomationInput = Partial<AutomationFlow>;
+export type CreateAutomationInput = Flow;
+export type UpdateAutomationInput = Partial<Flow>;
 
 export interface DashboardService {
   getMetrics(period?: PeriodFilter): Promise<DashboardMetrics>;
@@ -42,7 +42,7 @@ export interface DashboardService {
 export interface AutomationService {
   list(filters?: AutomationFilters): Promise<PaginatedResult<Automation>>;
   getById(id: string): Promise<Automation | null>;
-  getFlow(id: string): Promise<AutomationFlow | null>;
+  getFlow(id: string): Promise<Flow | null>;
   create(input: CreateAutomationInput): Promise<Automation>;
   update(id: string, input: UpdateAutomationInput): Promise<Automation>;
   duplicate(id: string): Promise<Automation>;

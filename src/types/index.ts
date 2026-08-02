@@ -223,6 +223,11 @@ export interface DashboardMetrics {
   attention: Automation[];
 }
 
-export * from "./automation-flow";
+export * from "./flow";
+export type {
+  Flow as AutomationFlow,
+  Step as AutomationStep,
+  Condition as AutomationCondition,
+} from "./flow";
 export * from "./filters";
 export * from "./connections";

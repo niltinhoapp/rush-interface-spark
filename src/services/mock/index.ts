@@ -35,7 +35,7 @@ import type {
   PeriodFilter,
   WhatsappConnection,
 } from "@/types";
-import type { AutomationFlow } from "@/types/automation-flow";
+import type { Flow } from "@/types/flow";
 import type {
   AutomationService,
   CartService,
@@ -92,15 +92,15 @@ function sortRows<T>(rows: T[], sortBy?: string, dir: "asc" | "desc" = "desc"): 
 /* ------------------------------------------------------------------ */
 
 let automationStore: Automation[] = [...automationSeed];
-const flowStore = new Map<string, AutomationFlow>();
+const flowStore = new Map<string, Flow>();
 
 let whatsappState: WhatsappConnection = { ...whatsappSeed };
 let emailState: EmailConnection = { ...emailSeed };
 
-function toFlow(automation: Automation): AutomationFlow {
+function toFlow(automation: Automation): Flow {
   const existing = flowStore.get(automation.id);
   if (existing) return existing;
-  const flow: AutomationFlow = {
+  const flow: Flow = {
     id: automation.id,
     name: automation.name,
     status: automation.status,
@@ -113,11 +113,11 @@ function toFlow(automation: Automation): AutomationFlow {
     conditionMatch: "all",
     conditions: [],
     steps: [
-      { id: `${automation.id}-delay`, kind: "delay", amount: 30, unit: "minutos" },
+      { id: `${automation.id}-delay`, type: "delay", amount: 30, unit: "minutos" },
       automation.channel === "whatsapp"
         ? {
             id: `${automation.id}-msg`,
-            kind: "whatsapp",
+            type: "send_whatsapp",
             templateId: whatsappTemplates[0]?.id ?? "",
             language: "pt_BR",
             variables: {},
@@ -125,7 +125,7 @@ function toFlow(automation: Automation): AutomationFlow {
           }
         : {
             id: `${automation.id}-msg`,
-            kind: "email",
+            type: "send_email",
             templateId: emailTemplates[0]?.id ?? "",
             senderId: emailSenders[0]?.id ?? "",
             subject: emailTemplates[0]?.subject ?? "",
@@ -137,8 +137,8 @@ function toFlow(automation: Automation): AutomationFlow {
   return flow;
 }
 
-function flowToAutomation(flow: AutomationFlow, base?: Automation): Automation {
-  const hasWhatsapp = flow.steps.some((s) => s.kind === "whatsapp");
+function flowToAutomation(flow: Flow, base?: Automation): Automation {
+  const hasWhatsapp = flow.steps.some((s) => s.type === "send_whatsapp");
   return {
     id: base?.id ?? flow.id ?? `aut-${Date.now()}`,
     name: flow.name,
@@ -208,7 +208,7 @@ const automationService: AutomationService = {
   update: (id, input: UpdateAutomationInput) => {
     const base = automationStore.find((a) => a.id === id);
     const current = base ? toFlow(base) : null;
-    const merged: AutomationFlow = { ...(current as AutomationFlow), ...input, id };
+    const merged: Flow = { ...(current as Flow), ...input, id };
     const updated = flowToAutomation(merged, base);
     automationStore = automationStore.map((a) => (a.id === id ? updated : a));
     flowStore.set(id, merged);
