@@ -14,7 +14,6 @@ import type {
   TriggerType,
   ConditionOperator,
   ApiActionType,
-  ApiCondition,
   ApiConditionField,
   ApiConditionOp,
   ApiFlowStatus,
