@@ -11,7 +11,19 @@ import type {
   FlowErrors,
   TimeUnit,
   ActionType,
+  TriggerType,
+  ConditionOperator,
+  ApiActionType,
+  ApiCondition,
+  ApiConditionField,
+  ApiConditionOp,
+  ApiFlowStatus,
+  ApiStep,
+  ApiTrigger,
+  ApiTriggerEvent,
+  DelayUnit,
 } from "@/types/flow";
+import type { AutomationStatus } from "@/types";
 import { numericConditionFields } from "@/lib/labels";
 
 let sequence = 0;
@@ -167,7 +179,135 @@ export function validateFlow(flow: Flow): FlowErrors {
   return errors;
 }
 
-/** Objeto exatamente no formato persistido pelo backend: `{ trigger, steps }`. */
+/* ------------------------------------------------------------------ */
+/* Serialização para o formato oficial do backend.                      */
+/* A UI trata `delay` como passo próprio; aqui ele é fundido no passo    */
+/* de ação seguinte (`step.delay`), como o backend espera.               */
+/* ------------------------------------------------------------------ */
+
+const triggerEventMap: Record<TriggerType, ApiTriggerEvent> = {
+  pedido_criado: "order_created",
+  pedido_pago: "order_paid",
+  pedido_enviado: "order_fulfilled",
+  pedido_cancelado: "order_created",
+  carrinho_abandonado: "cart_abandoned",
+  pos_compra: "order_paid",
+  recompra: "order_paid",
+};
+
+const delayUnitMap: Record<TimeUnit, DelayUnit> = {
+  minutos: "minutes",
+  horas: "hours",
+  dias: "days",
+};
+
+const statusMap: Record<AutomationStatus, ApiFlowStatus> = {
+  ativa: "active",
+  pausada: "paused",
+  rascunho: "draft",
+  erro: "paused",
+};
+
+const conditionFieldMap: Record<ConditionField, ApiConditionField> = {
+  produto: "item.productId",
+  sku: "item.sku",
+  categoria: "item.category",
+  marca: "item.brand",
+  valor_pedido: "order.total",
+  quantidade_itens: "order.itemsCount",
+  tipo_cliente: "customer.type",
+  forma_pagamento: "order.total",
+  status_pagamento: "order.total",
+  estado_cliente: "customer.type",
+  consentimento: "customer.type",
+};
+
+const conditionOpMap: Record<ConditionOperator, ApiConditionOp> = {
+  eq: "eq",
+  neq: "neq",
+  contains: "contains",
+  not_contains: "neq",
+  gt: "gt",
+  gte: "gte",
+  lt: "lt",
+  lte: "lte",
+  in: "in",
+  not_in: "neq",
+};
+
+const actionMap: Record<Exclude<ActionType, "delay">, ApiActionType> = {
+  send_whatsapp: "whatsapp",
+  send_email: "email",
+  add_tag: "tag",
+  webhook: "webhook",
+};
+
+function stepConfig(step: Step): Record<string, unknown> | undefined {
+  switch (step.type) {
+    case "send_whatsapp":
+      return {
+        language: step.language,
+        variables: step.variables,
+        recipientField: step.recipientField,
+      };
+    case "send_email":
+      return { senderId: step.senderId, subject: step.subject, variables: step.variables };
+    case "add_tag":
+      return { tag: step.tag, action: step.action };
+    case "webhook":
+      return {
+        url: step.url,
+        method: step.method,
+        headers: Object.fromEntries(step.headers.map((h) => [h.key, h.value])),
+        body: step.body,
+      };
+    default:
+      return undefined;
+  }
+}
+
+/** Converte os passos da UI em `ApiStep[]`, fundindo cada delay no passo seguinte. */
+export function toApiSteps(steps: Step[]): ApiStep[] {
+  const result: ApiStep[] = [];
+  let pending = { value: 0, unit: "minutes" as DelayUnit };
+
+  for (const step of steps) {
+    if (step.type === "delay") {
+      pending = { value: step.amount, unit: delayUnitMap[step.unit] };
+      continue;
+    }
+    const apiStep: ApiStep = {
+      delay: pending,
+      action: actionMap[step.type],
+    };
+    if ("templateId" in step && step.templateId) apiStep.templateId = step.templateId;
+    const config = stepConfig(step);
+    if (config) apiStep.config = config;
+    result.push(apiStep);
+    pending = { value: 0, unit: "minutes" };
+  }
+
+  return result;
+}
+
+export function toApiTrigger(flow: Flow): ApiTrigger {
+  return {
+    event: triggerEventMap[flow.trigger.type],
+    match: flow.conditionMatch,
+    conditions: flow.conditions.map((condition) => ({
+      field: conditionFieldMap[condition.field],
+      op: conditionOpMap[condition.operator],
+      value: condition.value,
+    })),
+  };
+}
+
+/** Payload de create/update no formato oficial: `{ name, status, trigger, steps }`. */
 export function toFlowPayload(flow: Flow): FlowPayload {
-  return { trigger: flow.trigger, steps: flow.steps };
+  return {
+    name: flow.name.trim(),
+    status: statusMap[flow.status],
+    trigger: toApiTrigger(flow),
+    steps: toApiSteps(flow.steps),
+  };
 }
