@@ -3,6 +3,7 @@
  * Sem regra de negócio real: apenas consistência da UI.
  */
 import type {
+  FlowPayload,
   Condition,
   ConditionField,
   Flow,
@@ -164,4 +165,9 @@ export function validateFlow(flow: Flow): FlowErrors {
   });
 
   return errors;
+}
+
+/** Objeto exatamente no formato persistido pelo backend: `{ trigger, steps }`. */
+export function toFlowPayload(flow: Flow): FlowPayload {
+  return { trigger: flow.trigger, steps: flow.steps };
 }
