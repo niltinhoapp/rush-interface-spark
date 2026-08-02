@@ -138,11 +138,12 @@ export const numericConditionFields: ConditionField[] = [
   "quantidade_itens",
 ];
 
+/** @deprecated use actionTypeLabels */
 export const actionTypeLabels: Record<ActionType, string> = {
   delay: "Esperar",
-  whatsapp: "Enviar WhatsApp",
-  email: "Enviar e-mail",
-  tag: "Adicionar ou remover tag",
+  send_whatsapp: "Enviar WhatsApp",
+  send_email: "Enviar e-mail",
+  add_tag: "Adicionar ou remover tag",
   webhook: "Chamar webhook",
 };
 

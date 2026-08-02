@@ -29,9 +29,9 @@ import { cn } from "@/lib/utils";
 
 const stepIcons: Record<ActionType, ComponentType<{ className?: string }>> = {
   delay: Clock,
-  whatsapp: MessageCircle,
-  email: Mail,
-  tag: Tag,
+  send_whatsapp: MessageCircle,
+  send_email: Mail,
+  add_tag: Tag,
   webhook: Webhook,
 };
 

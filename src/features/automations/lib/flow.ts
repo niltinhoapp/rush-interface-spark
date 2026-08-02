@@ -9,6 +9,7 @@ import type {
   Step,
   FlowErrors,
   TimeUnit,
+  ActionType,
 } from "@/types/flow";
 import { numericConditionFields } from "@/lib/labels";
 
@@ -30,12 +31,12 @@ export function createCondition(): Condition {
   return { id: nextId("cond"), field: "produto", operator: "eq", value: "" };
 }
 
-export function createStep(kind: Step["kind"]): Step {
+export function createStep(kind: ActionType): Step {
   const id = nextId("step");
   switch (kind) {
     case "delay":
       return { id, type: "delay", amount: 30, unit: "minutos" };
-    case "whatsapp":
+    case "send_whatsapp":
       return {
         id,
         type: "send_whatsapp",
@@ -44,9 +45,9 @@ export function createStep(kind: Step["kind"]): Step {
         variables: {},
         recipientField: "cliente.telefone",
       };
-    case "email":
+    case "send_email":
       return { id, type: "send_email", templateId: "", senderId: "", subject: "", variables: {} };
-    case "tag":
+    case "add_tag":
       return { id, type: "add_tag", tag: "", action: "add" };
     case "webhook":
     default:
@@ -92,11 +93,11 @@ export function describeFlow(flow: Flow): string[] {
     switch (step.type) {
       case "delay":
         return `Esperar ${step.amount} ${unitLabel[step.unit]}`;
-      case "whatsapp":
+      case "send_whatsapp":
         return `Enviar WhatsApp${step.templateId ? "" : " (template pendente)"}`;
-      case "email":
+      case "send_email":
         return `Enviar e-mail${step.templateId ? "" : " (template pendente)"}`;
-      case "tag":
+      case "add_tag":
         return `${step.action === "add" ? "Adicionar" : "Remover"} tag ${step.tag || "(sem nome)"}`;
       case "webhook":
         return `Webhook ${step.method}${step.url ? "" : " (URL pendente)"}`;
@@ -140,18 +141,18 @@ export function validateFlow(flow: Flow): FlowErrors {
           errors[`step:${step.id}:amount`] = "Informe um tempo de espera válido.";
         }
         break;
-      case "whatsapp":
+      case "send_whatsapp":
         if (!step.templateId) errors[`step:${step.id}:templateId`] = "Selecione um template aprovado.";
         if (!step.recipientField.trim()) {
           errors[`step:${step.id}:recipientField`] = "Informe o campo de destino.";
         }
         break;
-      case "email":
+      case "send_email":
         if (!step.templateId) errors[`step:${step.id}:templateId`] = "Selecione um template.";
         if (!step.senderId) errors[`step:${step.id}:senderId`] = "Selecione um remetente.";
         if (!step.subject.trim()) errors[`step:${step.id}:subject`] = "Informe o assunto.";
         break;
-      case "tag":
+      case "add_tag":
         if (!step.tag.trim()) errors[`step:${step.id}:tag`] = "Informe o nome da tag.";
         break;
       case "webhook":
