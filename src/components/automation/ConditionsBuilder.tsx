@@ -5,12 +5,12 @@ import { Button } from "@/components/ui/button";
 import { conditionFieldLabels, conditionOperatorLabels } from "@/lib/labels";
 import { createCondition, isNumericField } from "@/features/automations/lib/flow";
 import type {
-  AutomationCondition,
-  AutomationConditionField,
-  AutomationConditionOperator,
+  Condition,
+  ConditionField,
+  ConditionOperator,
   ConditionMatch,
   FlowErrors,
-} from "@/types/automation-flow";
+} from "@/types/flow";
 import { cn } from "@/lib/utils";
 
 export function ConditionsBuilder({
@@ -20,13 +20,13 @@ export function ConditionsBuilder({
   onMatchChange,
   errors,
 }: {
-  conditions: AutomationCondition[];
+  conditions: Condition[];
   match: ConditionMatch;
-  onChange: (conditions: AutomationCondition[]) => void;
+  onChange: (conditions: Condition[]) => void;
   onMatchChange: (match: ConditionMatch) => void;
   errors: FlowErrors;
 }) {
-  const update = (id: string, patch: Partial<AutomationCondition>) =>
+  const update = (id: string, patch: Partial<Condition>) =>
     onChange(conditions.map((c) => (c.id === id ? { ...c, ...patch } : c)));
 
   return (
@@ -75,7 +75,7 @@ export function ConditionsBuilder({
                   value={condition.field}
                   onChange={(e) =>
                     update(condition.id, {
-                      field: e.target.value as AutomationConditionField,
+                      field: e.target.value as ConditionField,
                       value: "",
                     })
                   }
@@ -97,7 +97,7 @@ export function ConditionsBuilder({
                   value={condition.operator}
                   onChange={(e) =>
                     update(condition.id, {
-                      operator: e.target.value as AutomationConditionOperator,
+                      operator: e.target.value as ConditionOperator,
                     })
                   }
                   className={fieldInputClass}

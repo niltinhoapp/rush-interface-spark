@@ -3,19 +3,19 @@
  * Sem regra de negócio real: apenas consistência da UI.
  */
 import type {
-  AutomationCondition,
-  AutomationConditionField,
-  AutomationFlow,
-  AutomationStep,
+  Condition,
+  ConditionField,
+  Flow,
+  Step,
   FlowErrors,
   TimeUnit,
-} from "@/types/automation-flow";
+} from "@/types/flow";
 import { numericConditionFields } from "@/lib/labels";
 
 let sequence = 0;
 export const nextId = (prefix: string) => `${prefix}-${Date.now().toString(36)}-${sequence++}`;
 
-export function createEmptyFlow(): AutomationFlow {
+export function createEmptyFlow(): Flow {
   return {
     name: "",
     trigger: { type: "carrinho_abandonado" },
@@ -26,33 +26,33 @@ export function createEmptyFlow(): AutomationFlow {
   };
 }
 
-export function createCondition(): AutomationCondition {
+export function createCondition(): Condition {
   return { id: nextId("cond"), field: "produto", operator: "eq", value: "" };
 }
 
-export function createStep(kind: AutomationStep["kind"]): AutomationStep {
+export function createStep(kind: Step["kind"]): Step {
   const id = nextId("step");
   switch (kind) {
     case "delay":
-      return { id, kind: "delay", amount: 30, unit: "minutos" };
+      return { id, type: "delay", amount: 30, unit: "minutos" };
     case "whatsapp":
       return {
         id,
-        kind: "whatsapp",
+        type: "send_whatsapp",
         templateId: "",
         language: "pt_BR",
         variables: {},
         recipientField: "cliente.telefone",
       };
     case "email":
-      return { id, kind: "email", templateId: "", senderId: "", subject: "", variables: {} };
+      return { id, type: "send_email", templateId: "", senderId: "", subject: "", variables: {} };
     case "tag":
-      return { id, kind: "tag", tag: "", action: "add" };
+      return { id, type: "add_tag", tag: "", action: "add" };
     case "webhook":
     default:
       return {
         id,
-        kind: "webhook",
+        type: "webhook",
         url: "",
         method: "POST",
         headers: [{ id: nextId("hdr"), key: "Content-Type", value: "application/json" }],
@@ -61,7 +61,7 @@ export function createStep(kind: AutomationStep["kind"]): AutomationStep {
   }
 }
 
-export function moveStep(steps: AutomationStep[], index: number, direction: -1 | 1) {
+export function moveStep(steps: Step[], index: number, direction: -1 | 1) {
   const target = index + direction;
   if (target < 0 || target >= steps.length) return steps;
   const copy = [...steps];
@@ -70,11 +70,11 @@ export function moveStep(steps: AutomationStep[], index: number, direction: -1 |
   return copy;
 }
 
-export function duplicateStep(step: AutomationStep): AutomationStep {
+export function duplicateStep(step: Step): Step {
   return { ...step, id: nextId("step") };
 }
 
-export const isNumericField = (field: AutomationConditionField) =>
+export const isNumericField = (field: ConditionField) =>
   numericConditionFields.includes(field);
 
 export function isValidHttpUrl(value: string): boolean {
@@ -87,9 +87,9 @@ const unitLabel: Record<TimeUnit, string> = {
   dias: "dia(s)",
 };
 
-export function describeFlow(flow: AutomationFlow): string[] {
+export function describeFlow(flow: Flow): string[] {
   return flow.steps.map((step) => {
-    switch (step.kind) {
+    switch (step.type) {
       case "delay":
         return `Esperar ${step.amount} ${unitLabel[step.unit]}`;
       case "whatsapp":
@@ -107,7 +107,7 @@ export function describeFlow(flow: AutomationFlow): string[] {
 }
 
 /** Valida o fluxo antes de salvar. Chaves seguem `campo` ou `step:<id>:<campo>`. */
-export function validateFlow(flow: AutomationFlow): FlowErrors {
+export function validateFlow(flow: Flow): FlowErrors {
   const errors: FlowErrors = {};
 
   if (!flow.name.trim()) errors.name = "Informe um nome para a automação.";
@@ -130,11 +130,11 @@ export function validateFlow(flow: AutomationFlow): FlowErrors {
     }
   });
 
-  const actionSteps = flow.steps.filter((step) => step.kind !== "delay");
+  const actionSteps = flow.steps.filter((step) => step.type !== "delay");
   if (actionSteps.length === 0) errors.steps = "Adicione pelo menos uma ação ao fluxo.";
 
   flow.steps.forEach((step) => {
-    switch (step.kind) {
+    switch (step.type) {
       case "delay":
         if (!step.amount || step.amount < 1) {
           errors[`step:${step.id}:amount`] = "Informe um tempo de espera válido.";
