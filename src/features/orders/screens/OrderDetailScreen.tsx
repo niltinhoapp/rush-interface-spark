@@ -1,5 +1,6 @@
 import { ArrowLeft } from "lucide-react";
 import { useOrder } from "@/hooks";
+import { AppShell } from "@/components/layout/AppShell";
 import { useNavigation } from "@/adapters/navigation";
 import { AppLink } from "@/components/common/AppLink";
 import { AsyncSection, SkeletonRows } from "@/components/common/AsyncSection";
@@ -17,7 +18,11 @@ export function OrderDetailScreen({ orderId }: { orderId: string }) {
   const navigation = useNavigation();
 
   return (
-    <div className="space-y-4">
+    <AppShell
+      title={order ? `Pedido ${order.number}` : "Detalhe do pedido"}
+      subtitle={order ? `${order.customer} · ${formatDateTime(order.createdAt)}` : "Histórico do pedido"}
+    >
+      <div className="space-y-4">
       <button
         type="button"
         onClick={() => navigation.back()}
@@ -76,6 +81,7 @@ export function OrderDetailScreen({ orderId }: { orderId: string }) {
           </div>
         ) : null}
       </AsyncSection>
-    </div>
+      </div>
+    </AppShell>
   );
 }
