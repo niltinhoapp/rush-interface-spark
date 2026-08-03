@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { SlidersHorizontal } from "lucide-react";
 import { useOrders } from "@/hooks";
+import { AppShell } from "@/components/layout/AppShell";
 import { SectionCard } from "@/components/common/SectionCard";
 import { SearchInput } from "@/components/common/SearchInput";
 import { Pagination } from "@/components/common/Pagination";
@@ -48,7 +49,11 @@ export function OrdersScreen() {
   );
 
   return (
-    <div className="space-y-4">
+    <AppShell
+      title="Pedidos"
+      subtitle={`${orders.total} ${orders.total === 1 ? "pedido acompanhado" : "pedidos acompanhados"} no período`}
+    >
+      <div className="space-y-4">
       <SectionCard bodyClassName="p-4 sm:p-5">
         <div className="grid gap-3 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-start">
           <SearchInput
@@ -108,6 +113,7 @@ export function OrdersScreen() {
           />
         ) : null}
       </div>
-    </div>
+      </div>
+    </AppShell>
   );
 }
